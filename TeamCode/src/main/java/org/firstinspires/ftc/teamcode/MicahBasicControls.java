@@ -5,8 +5,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import com.qualcomm.robotcore.hardware.TouchSensor;
-@Autonomous
 
+@Autonomous
 public class Micah1 extends LinearOpMode{
   public TouchSensor limit;
   
