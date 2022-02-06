@@ -15,7 +15,7 @@ import java.util.List;
 
 //this is the triangle red side: Will move the foundation and park on the tape 
 @Autonomous(name = "OldCode", group = "")
-public class OldCode extends LinearOpMode {
+public class DemoOpMode extends LinearOpMode {
 
   private DcMotor bottomleft;
   private DcMotor bottomright;
