@@ -1,29 +1,11 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-
-import com.qualcomm.robotcore.hardware.CRServoImpl;
 import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.Servo;
-
-import com.qualcomm.robotcore.hardware.Gamepad;
-
-import com.qualcomm.robotcore.util.ElapsedTime;
-
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-
-import com.qualcomm.robotcore.util.Range;
-
-import com.qualcomm.robotcore.hardware.DigitalChannel;
-
-import com.qualcomm.robotcore.hardware.DeviceInterfaceModule;
-
-import org.firstinspires.ftc.teamcode.utils.mechanumDrive;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 @TeleOp(name = "PCTeleOp", group = "")
 public class PCTeleOp extends OpMode {
