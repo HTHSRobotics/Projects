@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 @TeleOp(name = "TeleOpBackUp", group = "Old")
 public class TeleOpBackUp extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
-    private DcMotor tL, tR, bL, bR, lduck, rduck, intake, arm;
+    private DcMotor fL, fR, bL, bR, lduck, rduck, intake, arm;
     private CRServo push;
 
     // limit switches
@@ -23,8 +23,8 @@ public class TeleOpBackUp extends OpMode {
         // initialize motor variables with references to the physical motors
         bL = hardwareMap.dcMotor.get("bL");
         bR = hardwareMap.dcMotor.get("bR");
-        tL = hardwareMap.dcMotor.get("tL");
-        tR = hardwareMap.dcMotor.get("tR");
+        fL = hardwareMap.dcMotor.get("fL");
+        fR = hardwareMap.dcMotor.get("fR");
         lduck = hardwareMap.dcMotor.get("lduck");
         rduck = hardwareMap.dcMotor.get("rduck");
         push = hardwareMap.crservo.get("push");
@@ -33,9 +33,9 @@ public class TeleOpBackUp extends OpMode {
 
         // set all motors to reverse
         // bR.setDirection(DcMotorSimple.Direction.REVERSE);
-        tR.setDirection(DcMotorSimple.Direction.REVERSE);
+        fR.setDirection(DcMotorSimple.Direction.REVERSE);
         bL.setDirection(DcMotorSimple.Direction.REVERSE);
-        // tL.setDirection(DcMotorSimple.Direction.REVERSE);
+        // fL.setDirection(DcMotorSimple.Direction.REVERSE);
 
         // set all motors to brake
         arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -43,8 +43,8 @@ public class TeleOpBackUp extends OpMode {
         rduck.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         bL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         bR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        tR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        tL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        fR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        fL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
     }
 
@@ -87,28 +87,28 @@ public class TeleOpBackUp extends OpMode {
         if (aButton) {
             bL.setPower(0.3);
             bR.setPower(0.3);
-            tR.setPower(0.3);
-            tL.setPower(0.3);
+            fR.setPower(0.3);
+            fL.setPower(0.3);
         }
         if (bButton) {
             // b button : slowly moves to right
-            tR.setPower(-0.3);
+            fR.setPower(-0.3);
             bL.setPower(-0.3);
-            tL.setPower(0.3);
+            fL.setPower(0.3);
             bR.setPower(0.3);
         }
         if (xButton) {
             // x button: slowly moves to left
-            tR.setPower(0.3);
+            fR.setPower(0.3);
             bL.setPower(0.3);
-            tL.setPower(-0.3);
+            fL.setPower(-0.3);
             bR.setPower(-0.3);
         }
         if (yButton) {
             bL.setPower(-0.3);
             bR.setPower(-0.3);
-            tR.setPower(-0.3);
-            tL.setPower(-0.3);
+            fR.setPower(-0.3);
+            fL.setPower(-0.3);
         }
 
         telemetry.addData("moving", rSX);
@@ -150,16 +150,16 @@ public class TeleOpBackUp extends OpMode {
             // if right trigger is pressed, drive more slowly
             if (rightTrigger != 0) {
                 // cube the powers to provide the wheels with more control
-                tL.setPower(-0.3 * Math.pow(LF - rSX, 3));
+                fL.setPower(-0.3 * Math.pow(LF - rSX, 3));
                 bR.setPower(-0.3 * Math.pow(RR + rSX, 3));
-                tR.setPower(-0.3 * Math.pow(LR + rSX, 3));
+                fR.setPower(-0.3 * Math.pow(LR + rSX, 3));
                 bL.setPower(-0.3 * Math.pow(LR - rSX, 3));
             }
 
             else {
-                tL.setPower(0.5 * Math.pow(LF - rSX, 3));
+                fL.setPower(0.5 * Math.pow(LF - rSX, 3));
                 bR.setPower(0.5 * Math.pow(RR + rSX, 3));
-                tR.setPower(0.5 * Math.pow(RF + rSX, 3));
+                fR.setPower(0.5 * Math.pow(RF + rSX, 3));
                 bL.setPower(0.5 * Math.pow(LR - rSX, 3));
             }
 
@@ -271,9 +271,9 @@ public class TeleOpBackUp extends OpMode {
                 && !xButton && !yButton && !aButton && !bButton && rightStickY2 == 0
                 && leftStickY2 == 0 && !rightBumper2 && !leftBumper && !rightBumper
                 && !leftBumper2) {
-            tR.setPower(0);
+            fR.setPower(0);
             bR.setPower(0);
-            tL.setPower(0);
+            fL.setPower(0);
             bL.setPower(0);
             arm.setPower(0);
             push.setPower(0);

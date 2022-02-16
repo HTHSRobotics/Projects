@@ -1,31 +1,25 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.hardware.DigitalChannel;
-import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.ColorSensor;
-import com.qualcomm.robotcore.hardware.DistanceSensor;
-import java.util.ArrayList;
-import java.util.List;
 
 @Autonomous(name = "Duck", group = "old")
 public class Duck extends LinearOpMode {
-    private DcMotor tL, tR, bL, bR, rduck, arm, intake, lduck;
+    private DcMotor fL, fR, bL, bR, rduck, arm, intake, lduck;
     private CRServo push;
 
     // private DigitalChannel block;
     public void move(double speed, int time) {
-        tL.setPower(speed);
-        tR.setPower(speed);
+        fL.setPower(speed);
+        fR.setPower(speed);
         bL.setPower(speed);
         bR.setPower(speed);
         sleep(time);
-        tL.setPower(0);
-        tR.setPower(0);
+        fL.setPower(0);
+        fR.setPower(0);
         bL.setPower(0);
         bR.setPower(0);
         sleep(200);
@@ -43,26 +37,26 @@ public class Duck extends LinearOpMode {
 
     // strafes right if speed is positive, strafes left if negative
     public void strafe(double speed, int time) {
-        tL.setPower(speed);
+        fL.setPower(speed);
         bL.setPower(-speed);
-        tR.setPower(-speed);
+        fR.setPower(-speed);
         bR.setPower(speed);
         sleep(time);
-        tL.setPower(0);
+        fL.setPower(0);
         bL.setPower(0);
-        tR.setPower(0);
+        fR.setPower(0);
         bR.setPower(0);
 
     }
 
     public void rotate(double speed, int angle) {
-        tL.setPower(speed);
-        tR.setPower(-speed);
+        fL.setPower(speed);
+        fR.setPower(-speed);
         bL.setPower(speed);
         bR.setPower(-speed);
         sleep(angle * 10);// this is a random guess number
-        tL.setPower(0);
-        tR.setPower(0);
+        fL.setPower(0);
+        fR.setPower(0);
         bL.setPower(0);
         bR.setPower(0);
     }
@@ -76,8 +70,8 @@ public class Duck extends LinearOpMode {
     public void runOpMode() {
         bL = hardwareMap.dcMotor.get("bL");
         bR = hardwareMap.dcMotor.get("bR");
-        tL = hardwareMap.dcMotor.get("tL");
-        tR = hardwareMap.dcMotor.get("tR");
+        fL = hardwareMap.dcMotor.get("fL");
+        fR = hardwareMap.dcMotor.get("fR");
         rduck = hardwareMap.dcMotor.get("rduck");
         lduck = hardwareMap.dcMotor.get("lduck");
         push = hardwareMap.crservo.get("push");
@@ -88,15 +82,15 @@ public class Duck extends LinearOpMode {
 
         // set all motors to reverse
         bR.setDirection(DcMotorSimple.Direction.REVERSE);
-        // tR.setDirection(DcMotorSimple.Direction.REVERSE);
+        // fR.setDirection(DcMotorSimple.Direction.REVERSE);
         // bL.setDirection(DcMotorSimple.Direction.REVERSE);
-        tL.setDirection(DcMotorSimple.Direction.REVERSE);
+        fL.setDirection(DcMotorSimple.Direction.REVERSE);
 
         // set all motors to brake
         bL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         bR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        tR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        tL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        fR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        fL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         // push.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rduck.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);

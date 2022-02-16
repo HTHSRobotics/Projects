@@ -12,8 +12,8 @@ import kotlin.math.*
 class TeleOpBackUp_Kt : OpMode() {
     private val runtime = ElapsedTime()
 
-    lateinit var tL: DcMotor
-    lateinit var tR: DcMotor
+    lateinit var fL: DcMotor
+    lateinit var fR: DcMotor
     lateinit var bL: DcMotor
     lateinit var bR: DcMotor
     lateinit var lduck: DcMotor
@@ -29,8 +29,8 @@ class TeleOpBackUp_Kt : OpMode() {
         // initialize motor variables with references to the physical motors
         bL = hardwareMap.dcMotor["bL"]
         bR = hardwareMap.dcMotor["bR"]
-        tL = hardwareMap.dcMotor["tL"]
-        tR = hardwareMap.dcMotor["tR"]
+        fL = hardwareMap.dcMotor["fL"]
+        fR = hardwareMap.dcMotor["fR"]
         lduck = hardwareMap.dcMotor["lduck"]
         rduck = hardwareMap.dcMotor["rduck"]
         push = hardwareMap.crservo["push"]
@@ -39,9 +39,9 @@ class TeleOpBackUp_Kt : OpMode() {
 
         // set all motors to reverse
         // bR.setDirection(DcMotorSimple.Direction.REVERSE);
-        tR.direction = DcMotorSimple.Direction.REVERSE
+        fR.direction = DcMotorSimple.Direction.REVERSE
         bL.direction = DcMotorSimple.Direction.REVERSE
-        // tL.setDirection(DcMotorSimple.Direction.REVERSE);
+        // fL.setDirection(DcMotorSimple.Direction.REVERSE);
 
         // set all motors to brake
         arm.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE
@@ -49,8 +49,8 @@ class TeleOpBackUp_Kt : OpMode() {
         rduck.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE
         bL.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE
         bR.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE
-        tR.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE
-        tL.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE
+        fR.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE
+        fL.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE
     }
 
     override fun loop() {
@@ -95,28 +95,28 @@ class TeleOpBackUp_Kt : OpMode() {
         if (aButton) {
             bL.power = 0.3
             bR.power = 0.3
-            tR.power = 0.3
-            tL.power = 0.3
+            fR.power = 0.3
+            fL.power = 0.3
         }
         if (bButton) {
             // b button : slowly moves to right
-            tR.power = -0.3
+            fR.power = -0.3
             bL.power = -0.3
-            tL.power = 0.3
+            fL.power = 0.3
             bR.power = 0.3
         }
         if (xButton) {
             // x button: slowly moves to left
-            tR.power = 0.3
+            fR.power = 0.3
             bL.power = 0.3
-            tL.power = -0.3
+            fL.power = -0.3
             bR.power = -0.3
         }
         if (yButton) {
             bL.power = -0.3
             bR.power = -0.3
-            tR.power = -0.3
-            tL.power = -0.3
+            fR.power = -0.3
+            fL.power = -0.3
         }
         telemetry.addData("moving", rSX)
         telemetry.update()
@@ -154,14 +154,14 @@ class TeleOpBackUp_Kt : OpMode() {
             // if right trigger is pressed, drive more slowly
             if (rightTrigger != 0.0) {
                 // cube the powers to provide the wheels with more control
-                tL.power = -0.3 * (LF - rSX).pow(3.0)
+                fL.power = -0.3 * (LF - rSX).pow(3.0)
                 bR.power = -0.3 * (RR + rSX).pow(3.0)
-                tR.power = -0.3 * (LR + rSX).pow(3.0)
+                fR.power = -0.3 * (LR + rSX).pow(3.0)
                 bL.power = -0.3 * (LR - rSX).pow(3.0)
             } else {
-                tL.power = 0.5 * (LF - rSX).pow(3.0)
+                fL.power = 0.5 * (LF - rSX).pow(3.0)
                 bR.power = 0.5 * (RR + rSX).pow(3.0)
-                tR.power = 0.5 * (RF + rSX).pow(3.0)
+                fR.power = 0.5 * (RF + rSX).pow(3.0)
                 bL.power = 0.5 * (LR - rSX).pow(3.0)
             }
         }
@@ -262,9 +262,9 @@ class TeleOpBackUp_Kt : OpMode() {
         if (gamepad1.left_stick_x == 0f && gamepad1.left_stick_y == 0f && gamepad1.right_stick_x == 0f && gamepad1.right_stick_y == 0f && !xButton && !yButton && !aButton && !bButton && rightStickY2 == 0.0 && leftStickY2 == 0.0 && !rightBumper2 && !leftBumper && !rightBumper
             && !leftBumper2
         ) {
-            tR.power = 0.0
+            fR.power = 0.0
             bR.power = 0.0
-            tL.power = 0.0
+            fL.power = 0.0
             bL.power = 0.0
             arm.power = 0.0
             push.power = 0.0

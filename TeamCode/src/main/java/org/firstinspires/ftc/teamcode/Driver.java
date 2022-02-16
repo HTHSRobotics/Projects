@@ -29,22 +29,12 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.hardware.CRServoImpl;
-import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.Gamepad;
-import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
-import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.DigitalChannel;
-import com.qualcomm.robotcore.hardware.DeviceInterfaceModule;
 
 @TeleOp(name = "Driver", group = "old")
 public class Driver extends OpMode {
@@ -56,10 +46,10 @@ public class Driver extends OpMode {
     @Override
     public void init() {
         // initialize motor variables with references to the physical motors
-        bottomleft = hardwareMap.dcMotor.get("bottomleft");
-        bottomright = hardwareMap.dcMotor.get("bottomright");
-        topleft = hardwareMap.dcMotor.get("topleft");
-        topright = hardwareMap.dcMotor.get("topright");
+        bottomleft = hardwareMap.dcMotor.get("bL");
+        bottomright = hardwareMap.dcMotor.get("bR");
+        topleft = hardwareMap.dcMotor.get("tL");
+        topright = hardwareMap.dcMotor.get("tR");
         // hand = hardwareMap.crservo.get("hand");
         // grabber = hardwareMap.servo.get("grabber");
         arm = hardwareMap.dcMotor.get("arm");
@@ -68,8 +58,8 @@ public class Driver extends OpMode {
         // flippy2 = hardwareMap.crservo.get("flippy2");
 
         // set left motors to reverse
-        bottomright.setDirection(DcMotorSimple.Direction.REVERSE);
-        topright.setDirection(DcMotorSimple.Direction.REVERSE);
+        bottomleft.setDirection(DcMotorSimple.Direction.REVERSE);
+        topleft.setDirection(DcMotorSimple.Direction.REVERSE);
         flippy.setDirection(DcMotorSimple.Direction.REVERSE);
         arm.setDirection(DcMotorSimple.Direction.REVERSE);
         // bottomleft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
