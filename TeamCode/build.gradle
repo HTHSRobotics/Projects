@@ -18,5 +18,7 @@ apply plugin: 'kotlin-android'
 
 dependencies {
     implementation project(':FtcRobotController')
-    annotationProcessor files('lib/OpModeAnnotationProcessor.jar')
+    implementation 'org.ftclib.ftclib:core:1.2.1'
+    // the following is optional if you want vision
+//    implementation 'org.ftclib.ftclib:vision:1.2.1'
 }
