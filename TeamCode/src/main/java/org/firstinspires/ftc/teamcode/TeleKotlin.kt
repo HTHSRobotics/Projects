@@ -3,7 +3,9 @@ package org.firstinspires.ftc.teamcode
 import android.os.SystemClock.sleep
 import com.qualcomm.robotcore.eventloop.opmode.OpMode
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
+import com.qualcomm.robotcore.hardware.CRServo
 import com.qualcomm.robotcore.hardware.DcMotor
+import com.qualcomm.robotcore.hardware.DcMotorSimple
 import com.qualcomm.robotcore.hardware.Servo
 
 @TeleOp(name = "TeleKotlin", group = "TEST")
@@ -11,7 +13,7 @@ class TeleKotlin : OpMode() {
 
     lateinit var motor1: DcMotor
     lateinit var motor2: DcMotor
-    lateinit var servo: Servo
+    lateinit var servo: CRServo
 
     var slow1 = false
     var slow2 = false
@@ -19,7 +21,7 @@ class TeleKotlin : OpMode() {
     override fun init() {
         motor1 = hardwareMap.get(DcMotor::class.java, "motor")
         motor2 = hardwareMap.get(DcMotor::class.java, "motor2")
-        servo = hardwareMap.get(Servo::class.java, "servo")
+        servo = hardwareMap.get(CRServo::class.java, "servo")
     }
 
     override fun loop() {
@@ -28,6 +30,8 @@ class TeleKotlin : OpMode() {
 
         var bumperL = gamepad1.left_bumper
         var bumperR = gamepad1.right_bumper
+        var triggerL = gamepad1.left_trigger
+        var triggerR = gamepad1.right_trigger
 
         var slowToggle1 = gamepad1.left_stick_button
         var slowToggle2 = gamepad1.right_stick_button
@@ -58,12 +62,14 @@ class TeleKotlin : OpMode() {
             motor2.power = 0.0
         }
 
-        if (bumperL) {
-            var newPosition = servo.position - 0.1
-            servo.position = newPosition
-        } else if (bumperR) {
-            var newPosition = servo.position + 0.1
-            servo.position = newPosition
+        if (triggerL > 0) {
+            servo.direction = DcMotorSimple.Direction.REVERSE
+            servo.power = triggerL.toDouble()
+        } else if (triggerR > 0) {
+            servo.direction = DcMotorSimple.Direction.FORWARD
+            servo.power = triggerR.toDouble()
+        } else {
+            servo.power = 0.0
         }
 
         motor1.power = stick1

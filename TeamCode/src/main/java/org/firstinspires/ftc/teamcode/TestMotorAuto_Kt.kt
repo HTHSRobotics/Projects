@@ -6,17 +6,17 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
 import com.qualcomm.robotcore.hardware.DcMotor
 
 
-@Autonomous(name="TestMotorAuto_Kt",group="TEST")
-public class TestMotorAuto_Kt: LinearOpMode() {
+@Autonomous(name = "TestMotorAuto_Kt", group = "TEST")
+class TestMotorAuto_Kt : LinearOpMode() {
 
-    lateinit var motor: DcMotor;
+    lateinit var motor: DcMotor
 
-    public override fun runOpMode(){
+    override fun runOpMode() {
         motor = hardwareMap.get(DcMotor::class.java, "motor")
         telemetry.addData("Status", "Initialized")
-        telemetry.update();
+        telemetry.update()
 
-        waitForStart();
+        waitForStart()
 
         telemetry.addData("Speed", "0.1")
         motor.power = 0.1
