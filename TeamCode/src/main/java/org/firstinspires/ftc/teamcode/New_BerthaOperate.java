@@ -1,27 +1,40 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.arcrobotics.ftclib.controller.wpilibcontroller.ElevatorFeedforward;
 import com.arcrobotics.ftclib.drivebase.MecanumDrive;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.arcrobotics.ftclib.gamepad.ToggleButtonReader;
+import com.arcrobotics.ftclib.hardware.motors.CRServo;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
+import com.arcrobotics.ftclib.hardware.motors.MotorGroup;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-@TeleOp(name = "JustDrive_Holo", group = "NEW")
-public class New_BasicDrive extends OpMode {
+
+@TeleOp(name = "BerthaOperate", group = "NEW")
+@Disabled
+public class New_BerthaOperate extends OpMode {
     private GamepadEx driver, operator;
     private Gamepad driverCtrl, operatorCtrl;
 
     private Gamepad.RumbleEffect speedNormModeNotify, speedSlowModeNotify;
 
-    private Motor fL, fR, bL, bR;
+    private Motor fL, fR, bL, bR, arm, intake, duckL, duckR;
+    private CRServo eject;
+    private MotorGroup ducks;
 
     private MecanumDrive drive;
+    private ElevatorFeedforward lift;
+
 
     public void init() {
+        // -------------------- GAMEPAD -------------------- //
         driver = new GamepadEx(gamepad1);
         operator = new GamepadEx(gamepad2);
         driverCtrl = gamepad1;
@@ -38,26 +51,36 @@ public class New_BasicDrive extends OpMode {
                 .addStep(0.25,0.0,100)
                 .build();
 
+
+        // -------------------- DRIVE -------------------- //
         fL = new Motor(hardwareMap, "fL");
         fR = new Motor(hardwareMap, "fR");
         bL = new Motor(hardwareMap, "bL");
         bR = new Motor(hardwareMap, "bR");
 
         drive = new MecanumDrive(fL, fR, bL, bR);
+
+
+        // -------------------- IMPLEMENTS -------------------- //
+        arm = new Motor(hardwareMap, "arm");
+        intake = new Motor(hardwareMap, "intake");
+        duckL = new Motor(hardwareMap, "lduck");
+        duckR = new Motor(hardwareMap, "rduck");
+        eject = new CRServo(hardwareMap, "push");
+
+        ducks = new MotorGroup(duckL, duckR);
+
+        ducks.motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        arm.setRunMode(Motor.RunMode.VelocityControl);
+
+
+        telemetry.log().setDisplayOrder(Telemetry.Log.DisplayOrder.OLDEST_FIRST);
     }
 
-    public void init_loop() {
-        telemetry.speak("aeiou");
-    }
+    public void loop(){
 
-    public void start() {
-        telemetry.clearAll();
-        telemetry.speak("sup bitch");
-    }
-
-    public void loop() {
-
-        // ---------- DRIVER CONTROLS ---------- //
+        // -------------------- DRIVER CONTROLS -------------------- //
 
         telemetry.addLine("DRIVER STATUS");
 
@@ -80,10 +103,8 @@ public class New_BasicDrive extends OpMode {
         if (slowModeToggle.stateJustChanged() && !driverCtrl.isRumbling()) { // Trigger rumble to notify driver of speed mode
             if (slowModeToggle.getState()) {
                 driverCtrl.runRumbleEffect(speedSlowModeNotify);
-                telemetry.speak("Slow Mode");
             } else {
                 driverCtrl.runRumbleEffect(speedNormModeNotify);
-                telemetry.speak("Normal Mode");
             }
         }
 
@@ -93,10 +114,9 @@ public class New_BasicDrive extends OpMode {
 
         drive.driveRobotCentric(strafe, fwd, rotate);
 
-        telemetry.update();
-    }
 
-    public void stop(){
-        telemetry.speak("ah fuck, i've been shot!");
+        // -------------------- OPERATOR CONTROLS -------------------- //
+
+
     }
 }
